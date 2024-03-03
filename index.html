@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tahmin Oyunu</title>
+<style>
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+</style>
+</head>
+<body>
+    <h2>Tahmin Oyunu</h2>
+    <form id="guessGameForm">
+        <label id="guessLabel">1. tahmini girin:</label>
+        <input type="number" id="guessInput" name="guessInput">
+        <button type="button" onclick="makeGuess()">Tahmin Yap</button>
+        <hr>
+        <label id="resultLabel"></label>
+    </form>
+
+    <script>
+        var randomNum = Math.floor(Math.random() * 100) + 1; // Rastgele sayıyı belirle
+        var guesses = 0; // Tahmin sayısını izle
+
+        function makeGuess() {
+            guesses++; // Tahmin sayısını arttır
+            var guess = parseInt(document.getElementById("guessInput").value); // Kullanıcının tahmini
+
+            // Tahminin doğru olup olmadığını kontrol et
+            if (guess === randomNum) {
+                document.getElementById("resultLabel").textContent = "Sayı " + guesses + " adet denemede bulundu";
+            } else if (guesses === 7) {
+                document.getElementById("resultLabel").textContent = "Deneme hakkınız kalmadı. Kaybettiniz.";
+            } else if (guess < randomNum) {
+                document.getElementById("resultLabel").textContent = "Daha büyük bir sayı girin.";
+            } else {
+                document.getElementById("resultLabel").textContent = "Daha küçük bir sayı girin.";
+            }
+
+            // Bir sonraki tahmin için labelı güncelle
+            document.getElementById("guessLabel").textContent = (guesses + 1) + ". tahmini girin:";
+            document.getElementById("guessInput").value = ""; // Input alanını temizle
+        }
+    </script>
+</body>
+</html>
